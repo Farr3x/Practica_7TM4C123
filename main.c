@@ -5,8 +5,8 @@ int main(void)
     uint16_t valor = 0;
     char c='5';
     //char b='a';
-    Configurar_PLL(_25MHZ);  //Confiuracion de velocidad de reloj
-    Configurar_UART0();//Yo FCLK 20MHZ Baudrate 9600
+    Configurar_PLL(_40MHZ);  //Confiuracion de velocidad de reloj
+    Configurar_UART2();//Yo FCLK 40MHZ Baudrate 115200
 
     //Experimento 1
     //  Configurar_UART1(); //Jorge,Alberto,Navarro,Saul,Fabela -fclk 25MHZ Baud-rate 57600
@@ -18,7 +18,7 @@ int main(void)
     //  Configurar_UART5(); //Hector,Cecilia,Carolina,Jozzafat -fclk 40MHZ Baud-rate 28800
     Configurar_GPIO();
    // Homogeneidad();
-    //printString("Holis Bolis");
+    //printString("Holiwis Boliwis");
     printChar(c);
     //printChar(b);
     printString("\n");
