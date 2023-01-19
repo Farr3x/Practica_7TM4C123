@@ -7,5 +7,4 @@ extern void printChar(char c);
 extern void printString(char* string);
 extern char * readString(char delimitador);
 
-
 #endif /* UART_UART_H_ */

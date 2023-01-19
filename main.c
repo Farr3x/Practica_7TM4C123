@@ -3,6 +3,7 @@
 int main(void)
 {
     uint16_t valor = 0;
+    unsigned short int b = 1;
     char c='5';
     //char b='a';
     Configurar_PLL(_40MHZ);  //Confiuracion de velocidad de reloj
@@ -26,33 +27,57 @@ int main(void)
    // printString(&arr[0]);
     while(1)
     {
-         c = readChar();
-         switch(c)
-         {
-             case 'r':
-                 //GPIODATA port F 662
-                 printChar('a');
-                 GPIOF->DATA = (1<<1);
-                 break;
-             case 'b':
-                 //GPIODATA port F 662
-                 printChar('b');
-                 GPIOF->DATA = (1<<2);
-                 break;
-             case 'g':
-                 //GPIODATA port F 662
-                 printChar('c');
-                 GPIOF->DATA = (1<<3);
-                 break;
-             case 'y':
-                 //GPIODATA port F 662
-                 printChar('d');
-                 GPIOF->DATA = (1<<3) | (1<<2);
-                 break;
-             default:
-                 printChar((char)valor);
-                 GPIOF->DATA = (0<<1) | (0<<2) | (0<<3);
-                 break;
-         }
+        while(b)
+        {
+            c = readChar();
+            switch(c)
+            {
+                case 'r':
+                    //GPIODATA port F 662
+                    printChar('a');
+                    GPIOF->DATA = (1<<1);
+                    break;
+                case 'b':
+                    //GPIODATA port F 662
+                    printChar('b');
+                    GPIOF->DATA = (1<<2);
+                    break;
+                case 'g':
+                    //GPIODATA port F 662
+                    printChar('c');
+                    GPIOF->DATA = (1<<3);
+                    break;
+                case 'y':
+                    //GPIODATA port F 662
+                    printChar('d');
+                    GPIOF->DATA = (1<<3) | (1<<2);
+                    break;
+                case '_':
+                    //GPIODATA port F 662
+                    printChar('d');
+                    b = 0;
+                    break;
+                default:
+                    printChar((char)valor);
+                    GPIOF->DATA = (0<<1) | (0<<2) | (0<<3);
+                    break;
+            }
+        }
+        /*
+        while(b == 0)
+        {
+            char* stronk;
+            stronk = readString('@');
+            //char* pstronk = stronk;
+            if (*stronk == '~')
+            {
+                b = 1;
+            }
+            else
+            {
+                printString(stronk);
+            }
+        }
+        */
     }
 }
