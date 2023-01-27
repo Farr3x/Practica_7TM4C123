@@ -4,6 +4,8 @@ extern void Configurar_GPIO(void)
     SYSCTL->RCGCGPIO |=(1<<5); 
     GPIOF->LOCK= 0x4C4F434B;   // 2) unlock GPIO Port F
     GPIOF->CR = 0x1F;           // allow changes to PF4-0
+    //GPIOD->LOCK= 0x4C4F434B;
+    //GPIOD->CR= 0xF0;
     GPIOF->AMSEL = 0x00;        // 3) disable analog on PF
     GPIOF->PCTL = 0x00000000;   // 4) PCTL GPIO on PF4-0
     GPIOF->DIR = 0x0E;          // 5) PF4,PF0 in, PF3-1 out

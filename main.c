@@ -7,8 +7,7 @@ int main(void)
     char c='5';
     //char b='a';
     Configurar_PLL(_40MHZ);  //Confiuracion de velocidad de reloj
-    Configurar_UART2();//Yo FCLK 40MHZ Baudrate 115200
-
+    Configurar_UART3();//Yo FCLK 40MHZ Baudrate 115200
     //Experimento 1
     //  Configurar_UART1(); //Jorge,Alberto,Navarro,Saul,Fabela -fclk 25MHZ Baud-rate 57600
     //  Configurar_UART7(); //Angel,Fernanda,Sonia,Aleidis,Monse -fclk 50MHZ Baud-rate 57600
@@ -47,14 +46,25 @@ int main(void)
                     printChar('c');
                     GPIOF->DATA = (1<<3);
                     break;
-                case 'y':
+                case 'c':
                     //GPIODATA port F 662
                     printChar('d');
                     GPIOF->DATA = (1<<3) | (1<<2);
                     break;
+                case 'y':
+                    //GPIODATA port F 662
+                    printChar('e');
+                    GPIOF->DATA = (1<<3) | (1<<1);
+                    break;
+                case 'p':
+                    //GPIODATA port F 662
+                    printChar('f');
+                    GPIOF->DATA = (1<<2) | (1<<1);
+                    break;
                 case '_':
                     //GPIODATA port F 662
-                    printChar('d');
+                    printChar('e');
+                    GPIOF->DATA = (0<<3) | (0<<3) | (0<<1);
                     b = 0;
                     break;
                 default:
@@ -63,21 +73,22 @@ int main(void)
                     break;
             }
         }
-        /*
         while(b == 0)
         {
-            char* stronk;
-            stronk = readString('@');
-            //char* pstronk = stronk;
-            if (*stronk == '~')
+            c = readChar();
+            if (c == '~')
             {
                 b = 1;
+                c = 'r';
             }
             else
             {
-                printString(stronk);
+                char d;
+                char texto;
+                //char* ptexto = &texto;
+                d = readString('@', &texto);
+                printString(&texto);
             }
         }
-        */
     }
 }
