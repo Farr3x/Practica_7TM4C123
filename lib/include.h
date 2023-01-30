@@ -30,5 +30,7 @@
 #include "ADC.h"
 #include "PWM.h"
 #include "TIMER.h"
+#include "SSI.h"
+#include "SYSTICK.h"
 
 #endif /* INCLUDE_H_ */
