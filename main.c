@@ -2,93 +2,23 @@
 
 int main(void)
 {
-    uint16_t valor = 0;
-    unsigned short int b = 1;
-    char c='5';
-    //char b='a';
+    uint16_t Result[6];
     Configurar_PLL(_40MHZ);  //Confiuracion de velocidad de reloj
     Configurar_UART3();//Yo FCLK 40MHZ Baudrate 115200
-    //Experimento 1
-    //  Configurar_UART1(); //Jorge,Alberto,Navarro,Saul,Fabela -fclk 25MHZ Baud-rate 57600
-    //  Configurar_UART7(); //Angel,Fernanda,Sonia,Aleidis,Monse -fclk 50MHZ Baud-rate 57600
-    //  Configurar_UART4(); //Argelia,Roxana,Yesica,Vanesa,Christian,Abiu -fclk 10MHZ Baud-rate 4800
-    //  Configurar_UART2(); //Brizet,Monse,Luis,Majo,Alonso -fclk 40MHZ Baud-rate 115200
-    //  Configurar_UART3(); //Jesus,Yesica,Carlos,Dulce,Rodolfo,Leonardo -fclk 80MHZ Baud-rate 19200
-    //  Configurar_UART2(); //Andrea,Avila,Pamela,Paulina -fclk 50MHZ Baud-rate 57600
-    //  Configurar_UART5(); //Hector,Cecilia,Carolina,Jozzafat -fclk 40MHZ Baud-rate 28800
     Configurar_GPIO();
-   // Homogeneidad();
-    //printString("Holiwis Boliwis");
-    printChar(c);
-    //printChar(b);
-    printString("\n");
-   // char *arr = readString(',');
-   // printString(&arr[0]);
+    Configura_Reg_ADC0();
+    ADC0_InSeq1(*Result);
+    ADC0_InSeq2(*Result);
     while(1)
     {
-        while(b)
-        {
-            c = readChar();
-            switch(c)
-            {
-                case 'r':
-                    //GPIODATA port F 662
-                    printChar('a');
-                    GPIOF->DATA = (1<<1);
-                    break;
-                case 'b':
-                    //GPIODATA port F 662
-                    printChar('b');
-                    GPIOF->DATA = (1<<2);
-                    break;
-                case 'g':
-                    //GPIODATA port F 662
-                    printChar('c');
-                    GPIOF->DATA = (1<<3);
-                    break;
-                case 'c':
-                    //GPIODATA port F 662
-                    printChar('d');
-                    GPIOF->DATA = (1<<3) | (1<<2);
-                    break;
-                case 'y':
-                    //GPIODATA port F 662
-                    printChar('e');
-                    GPIOF->DATA = (1<<3) | (1<<1);
-                    break;
-                case 'p':
-                    //GPIODATA port F 662
-                    printChar('f');
-                    GPIOF->DATA = (1<<2) | (1<<1);
-                    break;
-                case '_':
-                    //GPIODATA port F 662
-                    printChar('e');
-                    GPIOF->DATA = (0<<3) | (0<<3) | (0<<1);
-                    b = 0;
-                    break;
-                default:
-                    printChar((char)valor);
-                    GPIOF->DATA = (0<<1) | (0<<2) | (0<<3);
-                    break;
-            }
-        }
-        while(b == 0)
-        {
-            c = readChar();
-            if (c == '~')
-            {
-                b = 1;
-                c = 'r';
-            }
-            else
-            {
-                char d;
-                char texto;
-                //char* ptexto = &texto;
-                d = readString('@', &texto);
-                printString(&texto);
-            }
-        }
+        ADC0_InSeq1(*Result);
+        ADC0_InSeq2(*Result);
+        unsigned long int Valor[6];
+        Valor[0] = Result[0];
+        Valor[1] = Result[1];
+        Valor[2] = Result[2];
+        Valor[3] = Result[3];
+        Valor[4] = Result[4];
+        Valor[5] = Result[5];
     }
 }
