@@ -1,4 +1,4 @@
-gcc/ADC.o: ADC.c lib/include.h \
+gcc/PWM.o: PWM.c lib/include.h \
  /cygdrive/c\program\ files\ (x86)\gnu\ arm\ embedded\ toolchain\10\ 2021.10\lib\gcc\arm-none-eabi\10.3.1\include\stdint.h \
  /cygdrive/c\program\ files\ (x86)\gnu\ arm\ embedded\ toolchain\10\ 2021.10\arm-none-eabi\include\stdint.h \
  /cygdrive/c\program\ files\ (x86)\gnu\ arm\ embedded\ toolchain\10\ 2021.10\arm-none-eabi\include\machine\_default_types.h \

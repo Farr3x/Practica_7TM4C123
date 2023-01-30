@@ -12,7 +12,7 @@ extern void Configurar_UART3(void)
     // GPIO Digital Enable (GPIOCEN) pag.682
     GPIOC->DEN = (1<<6) | (1<<7);//PD6 Rx PD7 Tx
     //UART3 UART Control (UARTCTL) pag.918 DISABLE!!
-    UART3->CTL = (0<<9) | (0<<8) | (0<<0) ;
+    UART3->CTL = (0<<9) | (0<<8) | (0<<0) | (0<<4) ;
 
     /* 
     UART Integer Baud-Rate Divisor (UARTIBRD) pag.914
@@ -28,7 +28,7 @@ extern void Configurar_UART3(void)
     //  UART Clock Configuration(UARTCC) pag.939
     UART3->CC =(0<<0);
     //Disable UART0 UART Control (UARTCTL) pag.918
-    UART3->CTL = (1<<0)| (1<<8) | (1<<9);
+    UART3->CTL = (1<<0)| (1<<8) | (1<<9)| (1<<4);
 }
 
 extern char readChar(void)
@@ -57,10 +57,9 @@ extern void printString(char *string)
     }
 }
 
-extern char readString(char delimitador, char *string)
+extern int readString(char delimitador, char *string, char rc)
 {
-    int i = 0; 
-    char rc = readChar();
+    int i = 0;
     while(rc != delimitador)
     {
         *(string+i) = rc;
@@ -68,6 +67,66 @@ extern char readString(char delimitador, char *string)
         rc = readChar();
     }
     return i;
+}
+
+extern int invString(int dim, char *string, char *inv)
+{
+    int i = 0;
+    while(dim > 0)
+    {
+        *(inv+i) = *(string+dim-1);
+        i++;
+        dim--;
+    }
+    return i;
+}
+
+extern int numString(int dim, char *string, char *numst)
+{
+    //int i = dim*2 + 1;
+    int i = 0, j = 0, k;
+    short unsigned int par = 1;
+    while(dim > j)
+    {
+        //if(i%2 != 1)
+        if(par != 0)
+        {
+            *(numst+i) = *(string+j);
+            i++;
+            par = 0;
+        }
+        else
+        {
+            j++;
+            //*(numst+i) = j;
+            k = NumToChar(j, numst+i);
+            /*if(k%2 != 1)
+            {
+                k++;
+            }*/
+            i = i + k;
+            par = 1;
+        }
+    }
+    return i;
+}
+
+extern int NumToChar(int g, char *pstring)
+{
+    int i = 1, k = 0, h = g;
+    while(h/10 > 0)
+    {
+        i++;
+        h = h/10;
+    }
+    for(int j = i; j > 0; j--)
+    { 
+        int u = pow(10,(j-1));
+        *(pstring+k) = (g / u) + 48;
+        k++;
+        g = g - u*(g/u);
+    }
+    return k;
 }
 
 /*
