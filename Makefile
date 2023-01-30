@@ -85,6 +85,7 @@ ${COMPILER}/main.axf: ${COMPILER}/PLL.o
 ${COMPILER}/main.axf: ${COMPILER}/UART.o
 ${COMPILER}/main.axf: ${COMPILER}/ADC.o
 ${COMPILER}/main.axf: ${COMPILER}/PWM.o
+${COMPILER}/main.axf: ${COMPILER}/TIMER.o
 ${COMPILER}/main.axf: main.ld
 SCATTERgcc_main=main.ld
 ENTRY_main=ResetISR

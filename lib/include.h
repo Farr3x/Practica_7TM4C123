@@ -29,5 +29,6 @@
 #include "UART.h"
 #include "ADC.h"
 #include "PWM.h"
+#include "TIMER.h"
 
 #endif /* INCLUDE_H_ */

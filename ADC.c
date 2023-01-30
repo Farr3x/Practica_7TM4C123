@@ -52,26 +52,35 @@ extern void Configura_Reg_ADC0(void)
     ADC0->PSSI |= (1<<2) | (1<<1);      //Iniciar el muestreo en el seq 1 y 2. Pag. 841
 }
 
-extern void ADC0_InSeq2(uint16_t *Lect)
+extern void ADC0_InSeq2(uint16_t *Lect, uint16_t *duty)
 {
     //ADC Processor Sample Sequence Initiate (ADCPSSI)
        ADC0->PSSI = (1<<2);
        while((ADC0->RIS&0x04)==0){}; // espera al convertidor
        Lect[2] = ADC0->SSFIFO2&0xFFF;
        Lect[1] = ADC0->SSFIFO2&0xFFF; //  Leer  el resultado almacenado en la pila2
-       Lect[0] = ADC0->SSFIFO2&0xFFF;
+       Lect[0] = ADC0->SSFIFO2&0xFFF;       
+       duty[1] = (Lect[1]*46875)/4096;
+       duty[0] = (Lect[0]*46875)/4096;
+       duty[1] = 47500 - (Lect[1]*5000)/4096;
+       duty[0] = 47500 - (Lect[0]*5000)/4096;
+       ADC0->ISC = 0x0004;  //Conversion finalizada
        //printChar('A');
        ADC0->ISC = 0x0004;  //Conversion finalizada
 }
 
-extern void ADC0_InSeq1(uint16_t *Lect)
+extern void ADC0_InSeq1(uint16_t *Lect, uint16_t *duty)
 {
     //ADC Processor Sample Sequence Initiate (ADCPSSI)
        ADC0->PSSI = (1<<1);
        while((ADC0->RIS&0x02)==0){}; // espera al convertidor
        Lect[5] = ADC0->SSFIFO2&0xFFF;
        Lect[4] = ADC0->SSFIFO2&0xFFF; //  Leer  el resultado almacenado en la pila2
-       Lect[3] = ADC0->SSFIFO2&0xFFF;
+       Lect[3] = ADC0->SSFIFO2&0xFFF;       
+       duty[1] = (Lect[1]*46875)/4096;
+       duty[0] = (Lect[0]*46875)/4096;
+       duty[1] = 47500 - (Lect[1]*5000)/4096;
+       duty[0] = 47500 - (Lect[0]*5000)/4096;
        //printChar('A');
        ADC0->ISC = 0x0002;  //Conversion finalizada
 }
